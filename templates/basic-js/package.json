@@ -1,0 +1,38 @@
+{
+  "name": "rango-template-basic-js",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "rango generate src/",
+    "dev": "vite",
+    "prebuild": "rango generate src/",
+    "build": "vite build",
+    "start": "node server.mjs",
+    "preview": "vite preview",
+    "generate": "rango generate src/",
+    "lint": "oxlint --deny-warnings .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "check": "oxlint --deny-warnings . && oxfmt --check ."
+  },
+  "dependencies": {
+    "@rangojs/router": "^0.4.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "sirv": "^3.0.0",
+    "srvx": "^0.11.22"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.1",
+    "@vitejs/plugin-react": "^6.0.0",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.16"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

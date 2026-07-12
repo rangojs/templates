@@ -1,0 +1,9 @@
+{
+  "name": "rango-app",
+  "compatibility_date": "2026-07-12",
+  "compatibility_flags": ["nodejs_compat", "nodejs_als"],
+  "main": "./src/worker.rsc.tsx",
+  "assets": {
+    "directory": "./dist/client"
+  }
+}

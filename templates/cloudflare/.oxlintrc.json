@@ -1,0 +1,6 @@
+{
+  "plugins": ["typescript"],
+  "categories": { "correctness": "error" },
+  "rules": { "typescript/triple-slash-reference": "off" },
+  "ignorePatterns": ["dist/", "node_modules/", ".vite/", ".wrangler/"]
+}

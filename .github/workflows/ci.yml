@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck templates
+        run: pnpm run typecheck
+      - name: Lint
+        run: pnpm run lint
+      - name: Format
+        run: pnpm run format
+      - name: Generated routes are current
+        run: pnpm run check:generated
+      - name: Build templates
+        run: pnpm run build
+      - name: create-rango scaffold smoke test (source layout)
+        run: pnpm --filter create-rango run test:smoke
+      - name: create-rango packaged artifact test (pack -> install -> scaffold -> build)
+        run: pnpm --filter create-rango run test:pack
+      - name: Runtime smoke (all templates, dev + production)
+        run: pnpm run test:runtime
+
+  smoke-windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter create-rango run test:smoke

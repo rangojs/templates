@@ -1,0 +1,12 @@
+packages:
+  - "templates/*"
+  - "packages/*"
+
+# Only these packages may run install/postinstall build scripts.
+allowBuilds:
+  esbuild: true
+  sharp: false
+  workerd: true
+
+minimumReleaseAgeExclude:
+  - "@rangojs/router@0.4.0"

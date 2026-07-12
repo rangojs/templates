@@ -1,0 +1,23 @@
+{
+  "name": "rango-templates",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r --if-present run build",
+    "check": "pnpm run check:generated && pnpm run typecheck && pnpm run lint && pnpm run format && pnpm run build && pnpm run test && pnpm run test:runtime",
+    "check:generated": "pnpm run generate && git diff --exit-code -- ':(glob)**/*.gen.ts'",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
+    "generate": "pnpm -r --if-present run generate",
+    "lint": "oxlint --deny-warnings .",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "pnpm --filter create-rango test",
+    "test:runtime": "node packages/create-rango/test/runtime-smoke.mjs"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0"
+  },
+  "packageManager": "pnpm@11.9.0"
+}

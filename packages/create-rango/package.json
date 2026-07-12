@@ -1,0 +1,50 @@
+{
+  "name": "create-rango",
+  "version": "0.1.0",
+  "description": "Scaffold a React Server Components app powered by @rangojs/router",
+  "keywords": [
+    "create",
+    "rango",
+    "react-server-components",
+    "rsc",
+    "scaffold",
+    "vite"
+  ],
+  "homepage": "https://github.com/rangojs/templates#readme",
+  "bugs": {
+    "url": "https://github.com/rangojs/templates/issues"
+  },
+  "license": "MIT",
+  "author": "Ivo Todorov",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rangojs/templates.git",
+    "directory": "packages/create-rango"
+  },
+  "bin": {
+    "create-rango": "index.js"
+  },
+  "files": [
+    "index.js",
+    "templates"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "prepack": "node scripts/sync-templates.mjs",
+    "postpack": "node scripts/sync-templates.mjs --clean",
+    "prepublishOnly": "npm test",
+    "test": "node test/smoke.mjs && node test/pack-smoke.mjs",
+    "test:smoke": "node test/smoke.mjs",
+    "test:pack": "node test/pack-smoke.mjs"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.7.0"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
