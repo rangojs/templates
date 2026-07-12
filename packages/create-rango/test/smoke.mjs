@@ -29,6 +29,7 @@ for (const [templateName, extraFlags] of cases) {
 
   const isJs = templateName.endsWith("-js");
   const routerFile = isJs ? "src/router.jsx" : "src/router.tsx";
+  const testExtension = isJs ? "js" : "ts";
   for (const file of [
     ".oxfmtrc.json",
     ".oxlintrc.json",
@@ -38,6 +39,8 @@ for (const [templateName, extraFlags] of cases) {
     "src/styles.css",
     "src/router.gen.ts",
     "src/router.named-routes.gen.ts",
+    `test/router.test.${testExtension}`,
+    `vitest.config.${testExtension}`,
     "README.md",
   ]) {
     assert.ok(
@@ -197,12 +200,10 @@ try {
   for (const file of planted) fs.rmSync(file, { force: true });
 }
 
-// The CLI advertises next steps for each detected package manager.
+// The CLI advertises next steps for each supported package manager.
 for (const [manager, userAgent, devCommand] of [
   ["npm", "npm/11.0.0", "npm run dev"],
   ["pnpm", "pnpm/11.0.0", "pnpm dev"],
-  ["yarn", "yarn/4.0.0", "yarn dev"],
-  ["bun", "bun/1.0.0", "bun dev"],
 ]) {
   const managerDir = path.join(workDir, `manager-${manager}`);
   const output = execFileSync(
@@ -217,6 +218,34 @@ for (const [manager, userAgent, devCommand] of [
   assert.match(output, new RegExp(`${manager} install`));
   assert.match(output, new RegExp(devCommand));
 }
+
+const managerOverrideDir = path.join(workDir, "manager-override");
+const managerOverrideOutput = execFileSync(
+  process.execPath,
+  [cli, managerOverrideDir, "--template", "basic", "--package-manager", "pnpm"],
+  {
+    stdio: "pipe",
+    encoding: "utf8",
+    env: { ...process.env, npm_config_user_agent: "npm/11.0.0" },
+  },
+);
+assert.match(managerOverrideOutput, /pnpm install/);
+assert.match(managerOverrideOutput, /pnpm dev/);
+
+assert.throws(() =>
+  execFileSync(
+    process.execPath,
+    [
+      cli,
+      path.join(workDir, "bad-manager"),
+      "--template",
+      "basic",
+      "--package-manager",
+      "yarn",
+    ],
+    { stdio: "pipe" },
+  ),
+);
 
 // JS flavor is basic-only; other templates must fail.
 assert.throws(() =>

@@ -10,10 +10,11 @@ npm run build      # production build to dist/
 npm run start      # run the production server (server.mjs)
 npm run preview    # serve the production build locally (Vite preview, local-only)
 npm run generate   # regenerate committed route maps
+npm test           # run unit tests
 npm run typecheck  # tsc --noEmit
 npm run lint       # oxlint
 npm run format     # oxfmt check
-npm run check      # typecheck + lint + format
+npm run check      # typecheck + tests + lint + format
 ```
 
 Requires Node.js 24 or newer.
@@ -29,5 +30,6 @@ Requires Node.js 24 or newer.
 - `src/components/Document.tsx` — the HTML shell (client component). Tailwind is wired here via `styles.css?url`.
 - `src/components/pages/` — route handlers. Each is a server function receiving a `HandlerContext` (params, meta, headers, …).
 - `src/actions/` — `"use server"` functions callable from client components.
+- `test/router.test.ts` — route-map drift test using `@rangojs/router/testing`.
 - `src/router.named-routes.gen.ts` — generated global route names for `Handler<"name">` and `ctx.reverse()`; commit it.
 - `src/router.gen.ts` — generated local route map used by `useReverse()` in client components; run `npm run generate` after route changes and commit it.

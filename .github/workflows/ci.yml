@@ -32,6 +32,8 @@ jobs:
         run: pnpm run format
       - name: Generated routes are current
         run: pnpm run check:generated
+      - name: Unit tests
+        run: pnpm run test:unit
       - name: Build templates
         run: pnpm run build
       - name: create-rango scaffold smoke test (source layout)

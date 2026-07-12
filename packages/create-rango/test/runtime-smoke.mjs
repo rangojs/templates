@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import path from "node:path";
+import { stripVTControlCharacters } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(
@@ -26,7 +27,7 @@ async function startServer(command, args, options) {
     }, 45_000);
     const onData = (chunk) => {
       output += String(chunk);
-      const match = output.match(URL_PATTERN);
+      const match = stripVTControlCharacters(output).match(URL_PATTERN);
       if (match) {
         clearTimeout(timer);
         resolve(Number(match[1]));

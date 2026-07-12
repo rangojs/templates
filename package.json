@@ -12,7 +12,8 @@
     "generate": "pnpm -r --if-present run generate",
     "lint": "oxlint --deny-warnings .",
     "typecheck": "pnpm -r --if-present run typecheck",
-    "test": "pnpm --filter create-rango test",
+    "test": "pnpm run test:unit && pnpm --filter create-rango test",
+    "test:unit": "pnpm --filter \"./templates/**\" test",
     "test:runtime": "node packages/create-rango/test/runtime-smoke.mjs"
   },
   "devDependencies": {

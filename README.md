@@ -15,7 +15,11 @@ Non-interactive:
 ```sh
 pnpm create rango my-app --template cloudflare        # TypeScript (default)
 pnpm create rango my-app --template basic --js        # JavaScript flavor
+npm create rango@latest my-app -- --package-manager npm
 ```
+
+Interactive runs ask whether generated commands should use npm or pnpm. Pass
+`--package-manager npm|pnpm` to make that choice non-interactively.
 
 ## Templates
 
@@ -42,7 +46,7 @@ pnpm run typecheck   # tsc across TS templates
 pnpm run lint        # oxlint across the repository
 pnpm run format      # oxfmt check
 pnpm run build       # vite build across all templates
-pnpm run test        # create-rango source + packaged artifact tests
+pnpm run test        # template unit tests + create-rango package tests
 pnpm run test:runtime # every template in dev and production
 pnpm run check       # complete local/CI quality gate
 
@@ -61,10 +65,10 @@ Template rules:
 
 ## Publishing create-rango
 
-Publishing is handled by `.github/workflows/publish.yml` when a GitHub release
-is published. The workflow runs the complete quality gate and uses npm trusted
-publishing with provenance. Configure the `rangojs/templates` package as a
-trusted publisher on npm before the first release.
+The first package version is published manually because npm requires the package
+to exist before a trusted publisher can be configured. After that, configure
+`rangojs/templates` and `.github/workflows/publish.yml` as the package's trusted
+publisher. Subsequent GitHub releases publish with provenance.
 
 `prepublishOnly` reruns the package tests for local/manual publishing, while
 `prepack` syncs the templates into the tarball and `postpack` removes the local

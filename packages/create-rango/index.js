@@ -35,6 +35,8 @@ const TEMPLATES = [
   },
 ];
 
+const PACKAGE_MANAGERS = ["npm", "pnpm"];
+
 const HELP = `create-rango — scaffold a Rango (@rangojs/router) app
 
 Usage:
@@ -44,6 +46,7 @@ Options:
   -t, --template <name>  ${TEMPLATES.map((t) => t.name).join(" | ")}
   --js                   JavaScript flavor (basic template only)
   --ts                   TypeScript flavor (default)
+  --package-manager <pm> npm | pnpm
   --overwrite            scaffold into a non-empty directory
   -h, --help             show this help
   -v, --version          show the create-rango version
@@ -51,11 +54,17 @@ Options:
 Examples:
   npm create rango@latest my-app
   pnpm create rango my-app --template cloudflare
+  npm create rango@latest my-app -- --package-manager npm
   pnpm create rango my-app -t basic --js
 `;
 
 function parseArgs(argv) {
-  const args = { dir: undefined, template: undefined, lang: undefined };
+  const args = {
+    dir: undefined,
+    template: undefined,
+    lang: undefined,
+    packageManager: undefined,
+  };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === "-h" || arg === "--help") args.help = true;
@@ -65,6 +74,11 @@ function parseArgs(argv) {
       if (!args.template) fail(`${arg} requires a value`);
     } else if (arg.startsWith("--template=")) {
       args.template = arg.slice("--template=".length);
+    } else if (arg === "--package-manager") {
+      args.packageManager = argv[++i];
+      if (!args.packageManager) fail(`${arg} requires a value`);
+    } else if (arg.startsWith("--package-manager=")) {
+      args.packageManager = arg.slice("--package-manager=".length);
     } else if (arg === "--js") args.lang = "js";
     else if (arg === "--ts") args.lang = "ts";
     else if (arg === "--overwrite") args.overwrite = true;
@@ -136,9 +150,7 @@ function isEmptyDir(dir) {
 
 function detectPackageManager() {
   const userAgent = process.env.npm_config_user_agent ?? "";
-  for (const pm of ["pnpm", "yarn", "bun"]) {
-    if (userAgent.startsWith(`${pm}/`)) return pm;
-  }
+  if (userAgent.startsWith("pnpm/")) return "pnpm";
   return "npm";
 }
 
@@ -271,6 +283,22 @@ async function main() {
     );
   }
 
+  if (args.packageManager && !PACKAGE_MANAGERS.includes(args.packageManager)) {
+    fail(
+      `Unknown package manager "${args.packageManager}". Available: ${PACKAGE_MANAGERS.join(", ")}`,
+    );
+  }
+  let packageManager = args.packageManager ?? detectPackageManager();
+  if (!args.packageManager && process.stdin.isTTY && process.stdout.isTTY) {
+    packageManager = bail(
+      await p.select({
+        message: "Which package manager?",
+        initialValue: packageManager,
+        options: PACKAGE_MANAGERS.map((value) => ({ value, label: value })),
+      }),
+    );
+  }
+
   const templateName = lang === "js" ? `${template}-js` : template;
   const templateDir = path.join(TEMPLATES_ROOT, templateName);
   if (!fs.existsSync(templateDir)) {
@@ -304,12 +332,11 @@ async function main() {
     toValidWorkerName(path.basename(targetDir)),
   );
 
-  const pm = detectPackageManager();
   const cd = path.relative(process.cwd(), targetDir);
   const steps = [
     ...(cd ? [`cd ${shellPath(cd)}`] : []),
-    `${pm} install`,
-    pm === "npm" ? "npm run dev" : `${pm} dev`,
+    `${packageManager} install`,
+    packageManager === "npm" ? "npm run dev" : "pnpm dev",
   ];
   p.note(steps.join("\n"), "Next steps");
   p.outro(`Scaffolded ${templateName} template in ${cd || "."}`);

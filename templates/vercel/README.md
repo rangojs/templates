@@ -9,10 +9,11 @@ npm run dev        # start the dev server
 npm run build      # vite build, then assembles .vercel/output (Build Output API v3)
 npm run preview    # serve .vercel/output with filesystem/function routing
 npm run generate   # regenerate committed route maps
+npm test           # run unit tests
 npm run typecheck  # tsc --noEmit
 npm run lint       # oxlint
 npm run format     # oxfmt check
-npm run check      # typecheck + lint + format
+npm run check      # typecheck + tests + lint + format
 ```
 
 Requires Node.js 24 or newer.
@@ -35,6 +36,7 @@ Pushing the repo to Vercel with the default Vite framework settings also works: 
 - `src/components/Document.tsx` — the HTML shell (client component). Tailwind is wired here via `styles.css?url`.
 - `src/components/pages/` — route handlers (server functions receiving a `HandlerContext`).
 - `src/actions/` — `"use server"` functions callable from client components.
+- `test/router.test.ts` — route-map drift test using `@rangojs/router/testing`.
 - `src/router.named-routes.gen.ts` — generated global route names for `Handler<"name">` and `ctx.reverse()`; commit it.
 - `src/router.gen.ts` — generated local route map used by `useReverse()` in client components; run `npm run generate` after route changes and commit it.
 - `scripts/preview.mjs` — serves the assembled Vercel output locally, including the streaming function.

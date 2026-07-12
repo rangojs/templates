@@ -83,6 +83,7 @@ const cases = [
 
 for (const { template, flags, router } of cases) {
   const label = template + (flags.includes("--js") ? "-js" : "");
+  const testExtension = flags.includes("--js") ? "js" : "ts";
   const appDir = path.join(workDir, `app-${label}`);
   run(
     npmCommand,
@@ -104,6 +105,8 @@ for (const { template, flags, router } of cases) {
     router,
     "src/router.gen.ts",
     "src/router.named-routes.gen.ts",
+    `test/router.test.${testExtension}`,
+    `vitest.config.${testExtension}`,
     "README.md",
   ]) {
     assert.ok(

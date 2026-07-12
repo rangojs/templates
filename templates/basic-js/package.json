@@ -11,10 +11,11 @@
     "start": "node server.mjs",
     "preview": "vite preview",
     "generate": "rango generate src/",
+    "test": "vitest run",
     "lint": "oxlint --deny-warnings .",
     "format": "oxfmt --check .",
     "format:fix": "oxfmt .",
-    "check": "oxlint --deny-warnings . && oxfmt --check ."
+    "check": "vitest run && oxlint --deny-warnings . && oxfmt --check ."
   },
   "dependencies": {
     "@rangojs/router": "^0.4.0",
@@ -30,7 +31,8 @@
     "oxlint": "^1.73.0",
     "tailwindcss": "^4.3.1",
     "typescript": "^5.9.3",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": ">=24.0.0"
