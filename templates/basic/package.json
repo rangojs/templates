@@ -19,7 +19,7 @@
     "check": "tsc --noEmit && vitest run && oxlint --deny-warnings . && oxfmt --check ."
   },
   "dependencies": {
-    "@rangojs/router": "^0.4.0",
+    "@rangojs/router": "^0.10.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "sirv": "^3.0.0",

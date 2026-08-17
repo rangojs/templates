@@ -186,6 +186,47 @@ function copyTemplate(templateDir, targetDir) {
   }
 }
 
+const ROUTER_PACKAGE = "@rangojs/router";
+
+// The bundled templates pin the router release they were last verified
+// against, and a ^0.x pin never crosses the next minor — so the pin goes
+// stale between create-rango publishes. Resolve the registry's current
+// `latest` at scaffold time and write that instead; when the registry is
+// unreachable the bundled pin still scaffolds a working app.
+// CREATE_RANGO_SKIP_LATEST keeps the smoke tests off the network.
+async function resolveLatestRouterVersion() {
+  const registry = (
+    process.env.npm_config_registry ?? "https://registry.npmjs.org"
+  ).replace(/\/+$/, "");
+  try {
+    const response = await fetch(
+      `${registry}/${encodeURIComponent(ROUTER_PACKAGE)}/latest`,
+      { signal: AbortSignal.timeout(5000) },
+    );
+    if (!response.ok) return undefined;
+    const { version } = await response.json();
+    return typeof version === "string" && /^\d+\.\d+\.\d+\S*$/.test(version)
+      ? version
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function patchRouterVersion(file, version) {
+  const source = fs.readFileSync(file, "utf8");
+  JSON.parse(source);
+  const dependency = /("@rangojs\/router"\s*:\s*)"(?:\\.|[^"\\])*"/;
+  if (!dependency.test(source)) {
+    throw new Error(`Cannot update ${ROUTER_PACKAGE} in ${file}`);
+  }
+  const next = source.replace(
+    dependency,
+    (_match, prefix) => `${prefix}${JSON.stringify(`^${version}`)}`,
+  );
+  fs.writeFileSync(file, next);
+}
+
 function patchJsonName(file, name) {
   if (!fs.existsSync(file)) return;
   const source = fs.readFileSync(file, "utf8");
@@ -331,6 +372,20 @@ async function main() {
     path.join(targetDir, "wrangler.json"),
     toValidWorkerName(path.basename(targetDir)),
   );
+
+  if (!process.env.CREATE_RANGO_SKIP_LATEST) {
+    const spin = p.spinner();
+    spin.start(`Resolving latest ${ROUTER_PACKAGE}`);
+    const latest = await resolveLatestRouterVersion();
+    if (latest) {
+      patchRouterVersion(path.join(targetDir, "package.json"), latest);
+      spin.stop(`${ROUTER_PACKAGE} ^${latest}`);
+    } else {
+      spin.stop(
+        `Registry unreachable — keeping the template's pinned ${ROUTER_PACKAGE}`,
+      );
+    }
+  }
 
   const cd = path.relative(process.cwd(), targetDir);
   const steps = [

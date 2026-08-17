@@ -1,8 +1,17 @@
 name: Publish create-rango
 
+# Publishes the version committed in packages/create-rango/package.json.
+# Bump the version in a commit first; a re-publish of an existing version
+# fails at npm. Auth is npm trusted publishing (id-token OIDC) — there is
+# no token secret to rotate.
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: publish-create-rango
+  cancel-in-progress: false
 
 permissions:
   contents: read

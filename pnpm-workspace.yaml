@@ -9,4 +9,4 @@ allowBuilds:
   workerd: true
 
 minimumReleaseAgeExclude:
-  - "@rangojs/router@0.4.0"
+  - "@rangojs/router"

@@ -1,15 +1,23 @@
 // Scaffold every template into a temp dir and assert the output shape:
 // files copied, _gitignore renamed, package.json / wrangler.json renamed.
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
 import fs from "node:fs";
+import http from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
 
 const pkgDir = path.dirname(fileURLToPath(import.meta.url));
 const cli = path.join(pkgDir, "../index.js");
 const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "create-rango-smoke-"));
+
+// Keep the shape assertions below off the network; the latest-resolution
+// cases at the bottom exercise the registry path against local endpoints.
+process.env.CREATE_RANGO_SKIP_LATEST = "1";
 
 const cases = [
   ["basic", []],
@@ -281,6 +289,60 @@ execFileSync(
 );
 assert.ok(fs.existsSync(path.join(busy, "keep.txt")), "overwrite kept file");
 assert.ok(fs.existsSync(path.join(busy, "package.json")), "overwrite copied");
+
+// Latest-version resolution: the scaffolder rewrites the bundled router pin
+// to the registry's `latest` dist-tag and honors npm_config_registry.
+const registry = http.createServer((req, res) => {
+  if (req.url === `/${encodeURIComponent("@rangojs/router")}/latest`) {
+    res.setHeader("content-type", "application/json");
+    res.end(JSON.stringify({ version: "9.9.9" }));
+  } else {
+    res.statusCode = 404;
+    res.end();
+  }
+});
+await new Promise((resolve) => registry.listen(0, "127.0.0.1", resolve));
+const registryEnv = (url) => ({
+  ...process.env,
+  CREATE_RANGO_SKIP_LATEST: "",
+  npm_config_registry: url,
+});
+
+// Async spawn, not execFileSync: the sync variant blocks this event loop,
+// so the mock server above could never answer the scaffolder's request.
+const latestDir = path.join(workDir, "latest-resolution");
+await execFileAsync(process.execPath, [cli, latestDir, "--template", "basic"], {
+  env: registryEnv(`http://127.0.0.1:${registry.address().port}/`),
+});
+registry.close();
+assert.equal(
+  JSON.parse(fs.readFileSync(path.join(latestDir, "package.json"), "utf8"))
+    .dependencies["@rangojs/router"],
+  "^9.9.9",
+  "router pin rewritten to registry latest",
+);
+
+// Registry unreachable: the scaffold still succeeds on the bundled pin.
+const templatePin = JSON.parse(
+  fs.readFileSync(
+    path.join(pkgDir, "../../../templates/basic/package.json"),
+    "utf8",
+  ),
+).dependencies["@rangojs/router"];
+const offlineDir = path.join(workDir, "offline-fallback");
+await execFileAsync(
+  process.execPath,
+  [cli, offlineDir, "--template", "basic"],
+  {
+    env: registryEnv("http://127.0.0.1:1/"),
+  },
+);
+assert.equal(
+  JSON.parse(fs.readFileSync(path.join(offlineDir, "package.json"), "utf8"))
+    .dependencies["@rangojs/router"],
+  templatePin,
+  "offline scaffold keeps the bundled pin",
+);
 
 fs.rmSync(workDir, { recursive: true, force: true });
 console.log(`smoke ok (${cases.length} templates)`);
