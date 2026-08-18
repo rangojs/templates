@@ -1,6 +1,6 @@
 {
   "name": "create-rango",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Scaffold a React Server Components app powered by @rangojs/router",
   "keywords": [
     "create",
