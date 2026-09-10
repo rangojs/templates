@@ -19,17 +19,17 @@
     "check": "tsc --noEmit && vitest run && oxlint --deny-warnings . && oxfmt --check ."
   },
   "dependencies": {
-    "@rangojs/router": "^0.10.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "@rangojs/router": "^0.12.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.44.0",
     "@cloudflare/workers-types": "^5.20260708.1",
     "@tailwindcss/vite": "^4.3.1",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "oxfmt": "^0.58.0",
     "oxlint": "^1.73.0",
     "tailwindcss": "^4.3.1",
