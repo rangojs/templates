@@ -24,7 +24,7 @@ Requires Node.js 24 or newer.
 - `src/worker.rsc.tsx` — the Worker entry (`wrangler.json#main`); forwards requests to the router.
 - `src/router.tsx` — the router: URL patterns, route names, and the document component.
 - `src/env.ts` — typed Workers bindings. Add KV/D1/R2 bindings in `wrangler.json`, then mirror them in `AppBindings` and read them via the request context.
-- `src/components/Document.tsx` — the HTML shell (client component). Tailwind is wired here via `styles.css?url`.
+- `src/components/Document.tsx` — the HTML shell (client component). It renders the router's document components: `Html.Meta` (tags from the `Meta` handle), `Html.Scripts` in `<head>` and `<body>` (scripts from the `Script` handle), and `Html.ScrollRestoration` (scroll position on back/forward). Tailwind is wired here via `styles.css?url`.
 - `src/components/pages/` — route handlers (server functions receiving a `HandlerContext`).
 - `src/actions/` — `"use server"` functions callable from client components.
 - `test/router.test.ts` — route-map drift test using `@rangojs/router/testing`.

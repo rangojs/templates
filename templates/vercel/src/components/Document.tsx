@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import {
+  Html,
   Link,
-  MetaTags,
   useNavigation,
   usePathname,
   useReverse,
@@ -22,7 +22,7 @@ export function Document({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (previousPathname.current !== pathname) {
-      contentRef.current?.focus();
+      contentRef.current?.focus({ preventScroll: true });
       previousPathname.current = pathname;
     }
   }, [pathname]);
@@ -36,11 +36,13 @@ export function Document({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <MetaTags />
+        <Html.Meta />
+        <Html.Scripts />
         <link rel="preload" as="style" href={styles} precedence="default" />
         <link rel="stylesheet" href={styles} precedence="default" />
       </head>
       <body className="min-h-dvh bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
+        <Html.Scripts position="body" />
         <div className="mx-auto max-w-2xl px-6 py-10">
           <a
             href="#main-content"
@@ -72,6 +74,7 @@ export function Document({ children }: { children: ReactNode }) {
             {children}
           </div>
         </div>
+        <Html.ScrollRestoration />
       </body>
     </html>
   );

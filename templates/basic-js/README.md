@@ -26,7 +26,7 @@ Requires Node.js 24 or newer.
 
 - `server.mjs` — the production server (`npm run start`): static assets via sirv, everything else via the router.
 - `src/router.jsx` — the router: URL patterns, route names, and the document component. The Vite plugin auto-discovers it; there is no `index.html` or entry file.
-- `src/components/Document.jsx` — the HTML shell (client component). Tailwind is wired here via `styles.css?url`.
+- `src/components/Document.jsx` — the HTML shell (client component). It renders the router's document components: `Html.Meta` (tags from the `Meta` handle), `Html.Scripts` in `<head>` and `<body>` (scripts from the `Script` handle), and `Html.ScrollRestoration` (scroll position on back/forward). Tailwind is wired here via `styles.css?url`.
 - `src/components/pages/` — route handlers. Each is a server function receiving the handler context (params, meta, headers, …).
 - `src/actions/` — `"use server"` functions callable from client components.
 - `test/router.test.js` — route-map drift test using `@rangojs/router/testing`.
