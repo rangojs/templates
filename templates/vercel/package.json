@@ -18,7 +18,7 @@
     "check": "tsc --noEmit && vitest run && oxlint --deny-warnings . && oxfmt --check ."
   },
   "dependencies": {
-    "@rangojs/router": "^0.12.3",
+    "@rangojs/router": "^0.17.0",
     "@vercel/functions": "^3.7.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
