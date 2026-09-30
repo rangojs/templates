@@ -18,7 +18,7 @@
     "check": "vitest run && oxlint --deny-warnings . && oxfmt --check ."
   },
   "dependencies": {
-    "@rangojs/router": "^0.17.0",
+    "@rangojs/router": "^0.18.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "sirv": "^3.0.0",

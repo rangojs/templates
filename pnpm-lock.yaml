@@ -24,8 +24,8 @@ importers:
   templates/basic:
     dependencies:
       '@rangojs/router':
-        specifier: ^0.17.0
-        version: 0.17.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
+        specifier: ^0.18.0
+        version: 0.18.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -76,8 +76,8 @@ importers:
   templates/basic-js:
     dependencies:
       '@rangojs/router':
-        specifier: ^0.17.0
-        version: 0.17.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
+        specifier: ^0.18.0
+        version: 0.18.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -116,8 +116,8 @@ importers:
   templates/cloudflare:
     dependencies:
       '@rangojs/router':
-        specifier: ^0.17.0
-        version: 0.17.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
+        specifier: ^0.18.0
+        version: 0.18.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -168,8 +168,8 @@ importers:
   templates/vercel:
     dependencies:
       '@rangojs/router':
-        specifier: ^0.17.0
-        version: 0.17.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
+        specifier: ^0.18.0
+        version: 0.18.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       '@vercel/functions':
         specifier: ^3.7.1
         version: 3.9.6(ws@8.21.0)
@@ -1039,8 +1039,8 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@rangojs/router@0.17.0':
-    resolution: {integrity: sha512-hP+eHHVSTeuzwJhbTE1Rlqq0KPphIiflLj0upuipwHUtwHv4DJDHDj8K1bE3gZk1MwANX/2bW43uJPYs6kOY+g==}
+  '@rangojs/router@0.18.0':
+    resolution: {integrity: sha512-s6yZROnTNLYf/+Ij5LSISgTxI62Ma8nUtrAqF5ARgmhJxzCvHCx7LhzmuO7CKf0efjDPwihiWMARnLO8Y2vyCA==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
@@ -2504,7 +2504,7 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@rangojs/router@0.17.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))':
+  '@rangojs/router@0.18.0(@cloudflare/vite-plugin@1.54.6(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)))(@vercel/functions@3.9.6(ws@8.21.0))(@vitejs/plugin-rsc@0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))':
     dependencies:
       '@types/debug': 4.1.13
       '@vitejs/plugin-rsc': 0.5.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
