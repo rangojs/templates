@@ -3,6 +3,7 @@
 import { createServer } from "node:http";
 import sirv from "sirv";
 import { toNodeHandler } from "srvx/node";
+import { withCompression } from "./compress.mjs";
 import handler from "./dist/rsc/index.js";
 
 const port = Number(process.env.PORT ?? 3000);
@@ -25,12 +26,16 @@ function isFingerprintedAsset(url) {
 }
 
 const server = createServer((req, res) => {
-  // Only Vite fingerprinted files are immutable. A user may also place an
-  // unhashed public file under public/assets/, which must remain revalidatable.
-  const serveAssets = isFingerprintedAsset(req.url ?? "/")
-    ? serveHashedAssets
-    : serveStatic;
-  serveAssets(req, res, () => serveApp(req, res));
+  // Compress static files and app responses alike: the hashed bundles are the
+  // largest transfer, and the streamed pages keep their per-chunk delivery.
+  withCompression(req, res, () => {
+    // Only Vite fingerprinted files are immutable. A user may also place an
+    // unhashed public file under public/assets/, which must remain revalidatable.
+    const serveAssets = isFingerprintedAsset(req.url ?? "/")
+      ? serveHashedAssets
+      : serveStatic;
+    serveAssets(req, res, () => serveApp(req, res));
+  });
 });
 server.listen(port, () => {
   console.log(`Listening on http://localhost:${server.address().port}`);

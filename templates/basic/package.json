@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@rangojs/router": "^0.18.0",
+    "compression": "^1.8.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "sirv": "^3.0.0",
